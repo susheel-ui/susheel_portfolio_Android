@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Susheel Verma — Android Developer Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Sora:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --android-green: #3DDC84;
+    --android-dark: #073042;
+    --android-mid: #0D5C73;
+    --android-accent: #00C48C;
+    --bg: #060E14;
+    --surface: #0A1A24;
+    --surface2: #0F2233;
+    --text: #E8F5E9;
+    --text-muted: #78A89A;
+    --border: rgba(61,220,132,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Sora', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ─── GRID OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(61,220,132,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(61,220,132,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 4rem;
+    background: rgba(6,14,20,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.1rem;
+    color: var(--android-green);
+    letter-spacing: 0.08em;
+    text-decoration: none;
+  }
+
+  .logo span { color: var(--text-muted); }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--android-green); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 7rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Android robot silhouette */
+  .hero::after {
+    content: '';
+    position: absolute;
+    right: -60px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 520px;
+    height: 520px;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%233DDC84' opacity='0.06'%3E%3Ccircle cx='100' cy='60' r='50'/%3E%3Crect x='30' y='95' width='140' height='80' rx='12'/%3E%3Crect x='10' y='100' width='18' height='60' rx='9'/%3E%3Crect x='172' y='100' width='18' height='60' rx='9'/%3E%3Crect x='60' y='180' width='20' height='40' rx='10'/%3E%3Crect x='120' y='180' width='20' height='40' rx='10'/%3E%3Ccircle cx='80' cy='55' r='8' fill='%23060E14'/%3E%3Ccircle cx='120' cy='55' r='8' fill='%23060E14'/%3E%3Cline x1='70' y1='20' x2='85' y2='38' stroke='%233DDC84' stroke-width='3' stroke-linecap='round'/%3E%3Cline x1='130' y1='20' x2='115' y2='38' stroke='%233DDC84' stroke-width='3' stroke-linecap='round'/%3E%3C/g%3E%3C/svg%3E") no-repeat center;
+    background-size: contain;
+    pointer-events: none;
+  }
+
+  .glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+
+  .glow-1 {
+    width: 600px; height: 600px;
+    background: rgba(61,220,132,0.06);
+    top: -200px; right: 100px;
+  }
+
+  .glow-2 {
+    width: 400px; height: 400px;
+    background: rgba(0,196,140,0.05);
+    bottom: -100px; left: 200px;
+  }
+
+  .hero-content { position: relative; z-index: 1; max-width: 680px; }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(61,220,132,0.08);
+    border: 1px solid rgba(61,220,132,0.25);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--android-green);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.8rem;
+  }
+
+  .badge-dot {
+    width: 6px; height: 6px;
+    background: var(--android-green);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+
+  .hero h1 {
+    font-size: clamp(3rem, 6vw, 5.2rem);
+    font-weight: 800;
+    line-height: 1.05;
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.03em;
+  }
+
+  .hero h1 .name { color: var(--android-green); }
+
+  .hero h1 .role {
+    display: block;
+    font-size: 0.45em;
+    font-weight: 300;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    margin-top: 0.5rem;
+  }
+
+  .hero-desc {
+    margin: 1.8rem 0 2.5rem;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+    max-width: 520px;
+  }
+
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--android-green);
+    color: #060E14;
+    padding: 0.85rem 2rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 30px rgba(61,220,132,0.25);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 50px rgba(61,220,132,0.4);
+  }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--android-green);
+    padding: 0.85rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    border: 1px solid rgba(61,220,132,0.4);
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .btn-outline:hover {
+    background: rgba(61,220,132,0.06);
+    border-color: var(--android-green);
+  }
+
+  .hero-stats {
+    margin-top: 3.5rem;
+    display: flex;
+    gap: 3rem;
+  }
+
+  .stat-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--android-green);
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* ─── SECTION BASE ─── */
+  section {
+    padding: 6rem 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .section-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--android-green);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 80px;
+  }
+
+  .section-title {
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+  }
+
+  .section-subtitle {
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.7;
+    max-width: 500px;
+    margin-bottom: 3.5rem;
+  }
+
+  /* ─── PROJECTS ─── */
+  #projects { background: var(--surface); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.8rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--android-green), var(--android-accent));
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin: left;
+  }
+
+  .project-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(61,220,132,0.35);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+
+  .project-card:hover::before { transform: scaleX(1); }
+
+  .project-icon {
+    width: 52px; height: 52px;
+    background: rgba(61,220,132,0.1);
+    border: 1px solid rgba(61,220,132,0.2);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .project-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+
+  .project-desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin-bottom: 1.2rem;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 1.2rem;
+  }
+
+  .tag {
+    background: rgba(61,220,132,0.07);
+    border: 1px solid rgba(61,220,132,0.18);
+    color: var(--android-green);
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 100px;
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 0.04em;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 0.8rem;
+  }
+
+  .proj-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--android-green);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+  }
+
+  .proj-link:hover { opacity: 1; }
+
+  /* ─── ABOUT / SKILLS ─── */
+  #about { background: var(--bg); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .skills-section { margin-top: 2rem; }
+
+  .skills-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--android-green);
+    margin-bottom: 1rem;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .skill-item { margin-bottom: 1rem; }
+
+  .skill-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+
+  .skill-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .skill-pct {
+    font-size: 0.75rem;
+    font-family: 'Space Mono', monospace;
+    color: var(--android-green);
+  }
+
+  .skill-bar {
+    height: 4px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+
+  .skill-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--android-green), var(--android-accent));
+    border-radius: 100px;
+    animation: fillBar 1.5s ease forwards;
+    transform-origin: left;
+  }
+
+  @keyframes fillBar {
+    from { width: 0 !important; }
+    to { }
+  }
+
+  .tech-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 1.5rem;
+  }
+
+  .tech-chip {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-family: 'Space Mono', monospace;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .tech-chip:hover {
+    border-color: var(--android-green);
+    color: var(--android-green);
+  }
+
+  /* ─── PHONE MOCKUP ─── */
+  .phone-mockup {
+    position: relative;
+    width: 240px;
+    margin: 0 auto;
+  }
+
+  .phone-frame {
+    background: var(--surface2);
+    border: 2px solid rgba(61,220,132,0.3);
+    border-radius: 36px;
+    padding: 16px 12px;
+    position: relative;
+    box-shadow: 0 0 60px rgba(61,220,132,0.1), 0 30px 80px rgba(0,0,0,0.5);
+  }
+
+  .phone-notch {
+    width: 80px; height: 20px;
+    background: var(--bg);
+    border-radius: 0 0 14px 14px;
+    margin: 0 auto 10px;
+    position: relative;
+  }
+
+  .phone-notch::after {
+    content: '';
+    width: 8px; height: 8px;
+    background: rgba(61,220,132,0.4);
+    border-radius: 50%;
+    position: absolute;
+    right: 16px;
+    top: 6px;
+  }
+
+  .phone-screen {
+    background: var(--bg);
+    border-radius: 24px;
+    padding: 14px;
+    min-height: 380px;
+  }
+
+  .app-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .app-icon {
+    width: 32px; height: 32px;
+    background: var(--android-green);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+  }
+
+  .app-title { font-size: 0.75rem; font-weight: 700; }
+  .app-sub { font-size: 0.6rem; color: var(--text-muted); }
+
+  .mini-card {
+    background: var(--surface);
+    border-radius: 12px;
+    padding: 10px;
+    margin-bottom: 8px;
+    border: 1px solid var(--border);
+  }
+
+  .mini-card-title {
+    font-size: 0.68rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .mini-bar {
+    height: 3px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 100px;
+    overflow: hidden;
+    margin-top: 6px;
+  }
+
+  .mini-bar-fill {
+    height: 100%;
+    background: var(--android-green);
+    border-radius: 100px;
+  }
+
+  .mini-stat { font-size: 0.6rem; color: var(--android-green); margin-top: 3px; }
+
+  /* ─── RESUME ─── */
+  #resume { background: var(--surface); }
+
+  .resume-container {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .resume-header {
+    background: linear-gradient(135deg, var(--android-dark) 0%, #0A2030 100%);
+    padding: 2.5rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .resume-name {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  .resume-title-label {
+    font-size: 0.85rem;
+    color: var(--android-green);
+    font-weight: 600;
+    margin-top: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  .resume-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--android-green);
+    color: #060E14;
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+
+  .resume-download:hover {
+    box-shadow: 0 0 30px rgba(61,220,132,0.35);
+    transform: translateY(-2px);
+  }
+
+  .resume-body { display: grid; grid-template-columns: 1fr 1.6fr; }
+
+  .resume-left {
+    background: var(--surface2);
+    padding: 2rem;
+    border-right: 1px solid var(--border);
+  }
+
+  .resume-right { padding: 2rem; }
+
+  .resume-section { margin-bottom: 2rem; }
+
+  .resume-section-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--android-green);
+    font-family: 'Space Mono', monospace;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.6rem;
+  }
+
+  .contact-item-icon { color: var(--android-green); font-size: 0.9rem; }
+
+  .skill-pill-list { display: flex; flex-direction: column; gap: 6px; }
+
+  .skill-pill {
+    background: rgba(61,220,132,0.08);
+    border: 1px solid rgba(61,220,132,0.18);
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: 0.75rem;
+    color: var(--text);
+    font-family: 'Space Mono', monospace;
+  }
+
+  .exp-item { margin-bottom: 1.5rem; }
+
+  .exp-header { display: flex; justify-content: space-between; align-items: flex-start; }
+
+  .exp-role {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .exp-date {
+    font-size: 0.72rem;
+    font-family: 'Space Mono', monospace;
+    color: var(--android-green);
+    white-space: nowrap;
+    margin-top: 3px;
+  }
+
+  .exp-company {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin: 3px 0 8px;
+  }
+
+  .exp-bullets { list-style: none; }
+
+  .exp-bullets li {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.55;
+  }
+
+  .exp-bullets li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--android-green);
+    font-size: 0.65rem;
+    top: 2px;
+  }
+
+  /* ─── CONTACT ─── */
+  #contact { background: var(--bg); }
+
+  .contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .contact-info-block {
+    padding-top: 1rem;
+  }
+
+  .contact-info-block p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.75;
+    margin-bottom: 2rem;
+  }
+
+  .social-links { display: flex; flex-direction: column; gap: 0.8rem; }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0.9rem 1.2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    font-weight: 600;
+    transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .social-link::after {
+    content: '→';
+    position: absolute;
+    right: 1rem;
+    opacity: 0;
+    transition: opacity 0.2s, right 0.2s;
+    color: var(--android-green);
+  }
+
+  .social-link:hover {
+    border-color: rgba(61,220,132,0.4);
+    color: var(--text);
+    transform: translateX(4px);
+  }
+
+  .social-link:hover::after {
+    opacity: 1;
+    right: 1.2rem;
+  }
+
+  .social-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .si-linkedin { background: rgba(10,102,194,0.15); color: #0A66C2; }
+  .si-github { background: rgba(255,255,255,0.06); color: #E8F5E9; }
+  .si-instagram { background: rgba(225,48,108,0.12); color: #E1306C; }
+  .si-email { background: rgba(61,220,132,0.1); color: var(--android-green); }
+
+  /* Contact form */
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+
+  .form-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-family: 'Space Mono', monospace;
+  }
+
+  .form-input, .form-textarea {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.8rem 1rem;
+    color: var(--text);
+    font-size: 0.9rem;
+    font-family: 'Sora', sans-serif;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .form-input:focus, .form-textarea:focus {
+    border-color: rgba(61,220,132,0.5);
+    box-shadow: 0 0 0 3px rgba(61,220,132,0.08);
+  }
+
+  .form-textarea { resize: vertical; min-height: 120px; }
+
+  .form-submit {
+    background: var(--android-green);
+    color: #060E14;
+    border: none;
+    padding: 0.9rem 2rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    font-family: 'Sora', sans-serif;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+
+  .form-submit:hover {
+    box-shadow: 0 0 30px rgba(61,220,132,0.3);
+    transform: translateY(-2px);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-text {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: 'Space Mono', monospace;
+  }
+
+  .footer-android {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: var(--android-green);
+    font-family: 'Space Mono', monospace;
+    opacity: 0.7;
+  }
+
+  /* ─── ANDROID ICON SVG ─── */
+  .android-icon-mini {
+    width: 20px; height: 20px;
+  }
+
+  /* ─── SCROLL ANIMATIONS ─── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── TERMINAL TICKER ─── */
+  .terminal-ticker {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    margin-top: 1.5rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--android-green);
+    overflow: hidden;
+    max-width: 460px;
+  }
+
+  .ticker-prompt { color: var(--text-muted); flex-shrink: 0; }
+
+  .ticker-text { white-space: nowrap; }
+
+  .cursor {
+    display: inline-block;
+    width: 2px; height: 14px;
+    background: var(--android-green);
+    animation: blink 1s infinite;
+    vertical-align: middle;
+    margin-left: 2px;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* ─── ANDROID ROBOT INLINE SVG ─── */
+  .android-bot {
+    position: absolute;
+    right: 6%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 380px;
+    opacity: 0.9;
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 2rem; }
+    .nav-links { display: none; }
+    .hero { padding: 6rem 2rem 3rem; }
+    .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
+    .android-bot { display: none; }
+    section { padding: 4rem 2rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .contact-wrapper { grid-template-columns: 1fr; gap: 2rem; }
+    .resume-body { grid-template-columns: 1fr; }
+    .resume-header { flex-direction: column; gap: 1rem; align-items: flex-start; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">Susheel<span>.dev</span></a>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#resume">Resume</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="btn-primary" style="padding: 0.6rem 1.4rem; font-size: 0.82rem;">Hire Me</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="glow-orb glow-1"></div>
+  <div class="glow-orb glow-2"></div>
+
+  <!-- Android Robot SVG -->
+  <svg class="android-bot" viewBox="0 0 340 400" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="botGlow" cx="50%" cy="60%" r="50%">
+        <stop offset="0%" stop-color="#3DDC84" stop-opacity="0.15"/>
+        <stop offset="100%" stop-color="#3DDC84" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <ellipse cx="170" cy="320" rx="140" ry="30" fill="url(#botGlow)"/>
+
+    <!-- Antennae -->
+    <line x1="120" y1="95" x2="100" y2="60" stroke="#3DDC84" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
+    <circle cx="98" cy="56" r="6" fill="#3DDC84" opacity="0.9"/>
+    <line x1="220" y1="95" x2="240" y2="60" stroke="#3DDC84" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
+    <circle cx="242" cy="56" r="6" fill="#3DDC84" opacity="0.9"/>
+
+    <!-- Head -->
+    <path d="M90 100 Q90 70 170 70 Q250 70 250 100 L250 155 Q250 170 170 170 Q90 170 90 155 Z" fill="#0D2B3E" stroke="#3DDC84" stroke-width="1.5" stroke-opacity="0.5"/>
+
+    <!-- Eyes -->
+    <circle cx="135" cy="125" r="12" fill="#3DDC84" opacity="0.9"/>
+    <circle cx="205" cy="125" r="12" fill="#3DDC84" opacity="0.9"/>
+    <circle cx="135" cy="125" r="5" fill="#060E14"/>
+    <circle cx="205" cy="125" r="5" fill="#060E14"/>
+    <circle cx="137" cy="122" r="2" fill="#3DDC84" opacity="0.8"/>
+    <circle cx="207" cy="122" r="2" fill="#3DDC84" opacity="0.8"/>
+
+    <!-- Body -->
+    <rect x="75" y="175" width="190" height="130" rx="16" fill="#0D2B3E" stroke="#3DDC84" stroke-width="1.5" stroke-opacity="0.4"/>
+
+    <!-- Screen lines on body -->
+    <rect x="95" y="195" width="150" height="3" rx="2" fill="#3DDC84" opacity="0.2"/>
+    <rect x="95" y="206" width="100" height="3" rx="2" fill="#3DDC84" opacity="0.15"/>
+    <rect x="95" y="217" width="130" height="3" rx="2" fill="#3DDC84" opacity="0.1"/>
+
+    <!-- Android logo on body -->
+    <text x="170" y="268" text-anchor="middle" font-size="36" fill="#3DDC84" opacity="0.12" font-family="monospace">⚙</text>
+
+    <!-- Left arm -->
+    <rect x="32" y="180" width="38" height="110" rx="19" fill="#0D2B3E" stroke="#3DDC84" stroke-width="1.5" stroke-opacity="0.4"/>
+
+    <!-- Right arm -->
+    <rect x="270" y="180" width="38" height="110" rx="19" fill="#0D2B3E" stroke="#3DDC84" stroke-width="1.5" stroke-opacity="0.4"/>
+
+    <!-- Left leg -->
+    <rect x="108" y="308" width="42" height="75" rx="21" fill="#0D2B3E" stroke="#3DDC84" stroke-width="1.5" stroke-opacity="0.4"/>
+
+    <!-- Right leg -->
+    <rect x="190" y="308" width="42" height="75" rx="21" fill="#0D2B3E" stroke="#3DDC84" stroke-width="1.5" stroke-opacity="0.4"/>
+
+    <!-- Glowing dots -->
+    <circle cx="145" cy="248" r="4" fill="#3DDC84" opacity="0.5"/>
+    <circle cx="170" cy="248" r="4" fill="#3DDC84" opacity="0.3"/>
+    <circle cx="195" cy="248" r="4" fill="#3DDC84" opacity="0.2"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <div class="badge-dot"></div>
+      Available for opportunities
+    </div>
+
+    <h1>
+      Hi, I'm <span class="name">Susheel Verma</span>
+      <span class="role">Android Developer · Java & Kotlin</span>
+    </h1>
+
+    <p class="hero-desc">
+      Motivated Android developer with hands-on experience building real-world apps using Kotlin, Java, MVVM architecture, and Jetpack libraries. Currently interning at CyberShield Technologies, Greater Noida.
+    </p>
+
+    <div class="terminal-ticker">
+      <span class="ticker-prompt">$ </span>
+      <span class="ticker-text" id="ticker">adb connect android.excellence</span>
+      <span class="cursor"></span>
+    </div>
+
+    <div class="hero-ctas" style="margin-top:2rem;">
+      <a href="#projects" class="btn-primary">View Projects ↓</a>
+      <a href="#resume" class="btn-outline">Download Resume</a>
+    </div>
+
+    <div class="hero-stats">
+      <div>
+        <span class="stat-num">2+</span>
+        <span class="stat-label">Years Exp.</span>
+      </div>
+      <div>
+        <span class="stat-num">3+</span>
+        <span class="stat-label">Apps Built</span>
+      </div>
+      <div>
+        <span class="stat-num">MCA</span>
+        <span class="stat-label">LNCT Univ.</span>
+      </div>
+      <div>
+        <span class="stat-num">7.77</span>
+        <span class="stat-label">CGPA</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <span class="section-tag">// work</span>
+    <div class="section-line"></div>
+  </div>
+  <h2 class="section-title">Featured Projects</h2>
+  <p class="section-subtitle">A selection of Android applications I've designed, built, and shipped to the Play Store.</p>
+
+  <div class="projects-grid">
+    <!-- Card 1 -->
+    <div class="project-card fade-up">
+      <div class="project-icon">📚</div>
+      <div class="project-title">SkillGroww</div>
+      <p class="project-desc">A mini LMS-based Android application focused on structured learning and user-friendly experience. Built during internship at CyberShield Technologies, currently under active development.</p>
+      <div class="project-tags">
+        <span class="tag">Kotlin</span>
+        <span class="tag">XML View System</span>
+        <span class="tag">Retrofit</span>
+        <span class="tag">Room DB</span>
+        <span class="tag">REST API</span>
+        <span class="tag">Gradle</span>
+      </div>
+      <div class="project-links">
+        <a href="#" class="proj-link">⌥ GitHub</a>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="project-card fade-up" style="transition-delay:0.1s">
+      <div class="project-icon">🔐</div>
+      <div class="project-title">SRS Security System</div>
+      <p class="project-desc">A secure role-based system with JWT authentication, authorization, and protected data handling to ensure controlled access. REST APIs secured with proper validation and encrypted password storage.</p>
+      <div class="project-tags">
+        <span class="tag">Kotlin/Java</span>
+        <span class="tag">Spring Boot</span>
+        <span class="tag">JWT</span>
+        <span class="tag">REST APIs</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">Postman</span>
+      </div>
+      <div class="project-links">
+        <a href="#" class="proj-link">⌥ GitHub</a>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="project-card fade-up" style="transition-delay:0.2s">
+      <div class="project-icon">🧾</div>
+      <div class="project-title">Bill Generator App</div>
+      <p class="project-desc">An Android app to generate and print invoices via thermal printers with inventory tracking for shopkeepers. Features barcode scanning for fast product selection and stock management.</p>
+      <div class="project-tags">
+        <span class="tag">Kotlin</span>
+        <span class="tag">Room DB</span>
+        <span class="tag">XML</span>
+        <span class="tag">ZXing</span>
+        <span class="tag">Thermal Print</span>
+      </div>
+      <div class="project-links">
+        <a href="#" class="proj-link">⌥ GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header">
+    <span class="section-tag">// about</span>
+    <div class="section-line"></div>
+  </div>
+  <h2 class="section-title">About Me</h2>
+
+  <div class="about-grid">
+    <div>
+      <div class="about-text">
+        <p>I'm an Android Developer with hands-on experience building real-world applications using Kotlin, Java, and MVVM architecture. Currently working as a Junior Software Developer Intern at CyberShield Technologies, Greater Noida.</p>
+        <p>I've also contributed as an external Java tutor under the MSME initiative at Indo German Tool Room, Indore, where I delivered Java programming and computer fundamentals training to students.</p>
+        <p>Based in Greater Noida, I hold an MCA from LNCT University (7.77 CGPA) and a BCA from Bundelkhand University. I'm passionate about clean UI/UX, scalable architecture, and solving real-world problems through mobile apps.</p>
+      </div>
+
+      <div class="skills-section fade-up">
+        <div class="skills-title">Core Skills</div>
+
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name">Kotlin & Java</span>
+            <span class="skill-pct">88%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name">Android Development (XML / View System)</span>
+            <span class="skill-pct">85%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name">MVVM Architecture</span>
+            <span class="skill-pct">82%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name">REST APIs · Retrofit · Volley</span>
+            <span class="skill-pct">80%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+        </div>
+
+        <div class="skill-item">
+          <div class="skill-header">
+            <span class="skill-name">Firebase · MySQL · SQLite</span>
+            <span class="skill-pct">75%</span>
+          </div>
+          <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
+        </div>
+      </div>
+
+      <div class="tech-chips fade-up">
+        <span class="tech-chip">Kotlin</span>
+        <span class="tech-chip">Java</span>
+        <span class="tech-chip">C / C++</span>
+        <span class="tech-chip">JavaScript</span>
+        <span class="tech-chip">Retrofit</span>
+        <span class="tech-chip">Volley</span>
+        <span class="tech-chip">Room DB</span>
+        <span class="tech-chip">RecyclerView</span>
+        <span class="tech-chip">Material Design</span>
+        <span class="tech-chip">Firebase</span>
+        <span class="tech-chip">Gradle (KTS)</span>
+        <span class="tech-chip">HTML/CSS/XML</span>
+      </div>
+    </div>
+
+    <!-- Phone Mockup -->
+    <div class="fade-up" style="display:flex; justify-content:center; align-items:center;">
+      <div class="phone-mockup">
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="app-bar">
+              <div class="app-icon">🤖</div>
+              <div>
+                <div class="app-title">AlexDev Studio</div>
+                <div class="app-sub">v5.2.0 · Android 14</div>
+              </div>
+            </div>
+
+            <div class="mini-card">
+              <div class="mini-card-title">SkillGroww — LMS App</div>
+              <div style="font-size:0.6rem; color:var(--text-muted);">Kotlin · Retrofit · Room DB</div>
+              <div class="mini-bar"><div class="mini-bar-fill" style="width:88%"></div></div>
+              <div class="mini-stat">Active Development</div>
+            </div>
+
+            <div class="mini-card">
+              <div class="mini-card-title">SRS Security System</div>
+              <div style="font-size:0.6rem; color:var(--text-muted);">Spring Boot · JWT · MySQL</div>
+              <div class="mini-bar"><div class="mini-bar-fill" style="width:82%"></div></div>
+              <div class="mini-stat">Role-Based Auth · REST APIs</div>
+            </div>
+
+            <div class="mini-card">
+              <div class="mini-card-title">Bill Generator App</div>
+              <div style="font-size:0.6rem; color:var(--text-muted);">Kotlin · Room · ZXing</div>
+              <div class="mini-bar"><div class="mini-bar-fill" style="width:76%"></div></div>
+              <div class="mini-stat">Thermal Print · Barcode Scan</div>
+            </div>
+
+            <div style="margin-top:10px; padding:8px; background:rgba(61,220,132,0.06); border:1px solid rgba(61,220,132,0.2); border-radius:8px; display:flex; align-items:center; gap:6px;">
+              <div style="width:8px;height:8px;background:var(--android-green);border-radius:50%;"></div>
+              <span style="font-size:0.62rem; color:var(--android-green);">Open to new projects</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESUME -->
+<section id="resume">
+  <div class="section-header">
+    <span class="section-tag">// resume</span>
+    <div class="section-line"></div>
+  </div>
+  <h2 class="section-title">Experience & Education</h2>
+  <p class="section-subtitle">My professional journey building Android products people love.</p>
+
+  <div class="resume-container fade-up">
+    <div class="resume-header">
+      <div>
+        <div class="resume-name">Susheel Verma</div>
+        <div class="resume-title-label">Android Developer · Java & Kotlin</div>
+      </div>
+      <a href="#" class="resume-download">↓ Download PDF</a>
+    </div>
+
+    <div class="resume-body">
+      <!-- LEFT -->
+      <div class="resume-left">
+        <div class="resume-section">
+          <div class="resume-section-title">Contact</div>
+          <div class="contact-item"><span class="contact-item-icon">✉</span> susheeverma444@gmail.com</div>
+          <div class="contact-item"><span class="contact-item-icon">📞</span> +91 8318204216</div>
+          <div class="contact-item"><span class="contact-item-icon">📍</span> Greater Noida, UP – 201310</div>
+          <div class="contact-item"><span class="contact-item-icon">🐙</span> github.com/susheel-ui</div>
+          <div class="contact-item"><span class="contact-item-icon">💼</span> linkedin.com/in/Susheel-Verma</div>
+        </div>
+
+        <div class="resume-section">
+          <div class="resume-section-title">Tech Stack</div>
+          <div class="skill-pill-list">
+            <div class="skill-pill">Kotlin / Java</div>
+            <div class="skill-pill">Android (XML View)</div>
+            <div class="skill-pill">MVVM Architecture</div>
+            <div class="skill-pill">Retrofit / Volley</div>
+            <div class="skill-pill">Room / SQLite</div>
+            <div class="skill-pill">Firebase Services</div>
+            <div class="skill-pill">REST API Integration</div>
+            <div class="skill-pill">Spring Boot · JWT</div>
+            <div class="skill-pill">Gradle (KTS / Groovy)</div>
+            <div class="skill-pill">HTML · CSS · JavaScript</div>
+          </div>
+        </div>
+
+        <div class="resume-section">
+          <div class="resume-section-title">Education</div>
+          <div style="font-size:0.82rem; font-weight:700; color:var(--text);">MCA — Master of Computer Application</div>
+          <div style="font-size:0.75rem; color:var(--text-muted); margin:4px 0;">LNCT University, Bhopal</div>
+          <div style="font-size:0.72rem; color:var(--android-green); font-family:'Space Mono',monospace;">2023 – 2025 · CGPA: 7.77/10</div>
+
+          <div style="margin-top:1rem;">
+            <div style="font-size:0.82rem; font-weight:700; color:var(--text);">BCA (Hons.)</div>
+            <div style="font-size:0.75rem; color:var(--text-muted); margin:4px 0;">Bundelkhand University, Jhansi</div>
+            <div style="font-size:0.72rem; color:var(--android-green); font-family:'Space Mono',monospace;">2019 – 2022 · 66.8%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="resume-right">
+        <div class="resume-section-title">Experience</div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div class="exp-role">Junior Software Developer Intern</div>
+            <div class="exp-date">Nov 2025 – Present</div>
+          </div>
+          <div class="exp-company">CyberShield Technologies Pvt. Ltd. · Greater Noida, India</div>
+          <ul class="exp-bullets">
+            <li>Developing and maintaining Android applications using Kotlin and Java, following MVVM architecture.</li>
+            <li>Collaborating with product and QA teams to deliver features with clean XML UIs and smooth UX.</li>
+            <li>Building SkillGroww — an LMS app with Retrofit-based REST API integration and Room database.</li>
+          </ul>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div class="exp-role">Java Developer (External Tutor)</div>
+            <div class="exp-date">April 2025</div>
+          </div>
+          <div class="exp-company">MSME Initiative · Indo German Tool Room, Indore</div>
+          <ul class="exp-bullets">
+            <li>Delivered comprehensive Java programming and Computer Fundamentals training to students under MSME.</li>
+            <li>Simplified complex concepts through practical examples, boosting understanding of core Java principles.</li>
+            <li>Guided students in applying programming skills to real-world scenarios and assignments.</li>
+          </ul>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div class="exp-role">Android Development Intern</div>
+            <div class="exp-date">Dec 2022 – March 2023</div>
+          </div>
+          <div class="exp-company">Code Better · Indore, India</div>
+          <ul class="exp-bullets">
+            <li>Developed Android apps using Java/Kotlin with REST API integration, Firebase services, and MVVM architecture.</li>
+            <li>Designed responsive UI/UX with XML, RecyclerView, and Material Design for smooth user experience.</li>
+          </ul>
+        </div>
+
+        <div style="margin-top:2rem;">
+          <div class="resume-section-title">Objective</div>
+          <ul class="exp-bullets">
+            <li>Motivated IT professional with hands-on experience in software development and problem-solving.</li>
+            <li>Seeking to contribute technical expertise in Java, Android, and web technologies to deliver innovative solutions.</li>
+            <li>Eager to grow in a dynamic organization while building impactful, user-centric applications.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header">
+    <span class="section-tag">// contact</span>
+    <div class="section-line"></div>
+  </div>
+  <h2 class="section-title">Let's Build Something</h2>
+
+  <div class="contact-wrapper">
+    <div class="contact-info-block fade-up">
+      <p>Whether it's an Android project, Java development collaboration, or a full-time opportunity — I'd love to connect. Currently open to internships and full-time roles in Android/mobile development.</p>
+
+      <div class="social-links">
+        <a href="https://linkedin.com/in/Susheel-Verma" target="_blank" class="social-link">
+          <div class="social-icon si-linkedin">in</div>
+          <span>linkedin.com/in/Susheel-Verma</span>
+        </a>
+        <a href="https://github.com/susheel-ui" target="_blank" class="social-link">
+          <div class="social-icon si-github">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          </div>
+          <span>github.com/susheel-ui</span>
+        </a>
+        <a href="https://instagram.com" target="_blank" class="social-link">
+          <div class="social-icon si-instagram">📷</div>
+          <span>@susheelverma</span>
+        </a>
+        <a href="mailto:susheeverma444@gmail.com" class="social-link">
+          <div class="social-icon si-email">✉</div>
+          <span>susheeverma444@gmail.com</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="fade-up" style="transition-delay:0.15s">
+      <div class="contact-form">
+        <div class="form-group">
+          <label class="form-label">Name</label>
+          <input type="text" class="form-input" placeholder="Your name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" placeholder="you@example.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Subject</label>
+          <input type="text" class="form-input" placeholder="Project inquiry, collaboration...">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" placeholder="Tell me about your project or idea..."></textarea>
+        </div>
+        <button class="form-submit" onclick="handleSubmit(this)">
+          Send Message ↗
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-text">© 2026 Susheel Verma · All rights reserved</div>
+  <div class="footer-android">
+    <svg width="16" height="18" viewBox="0 0 20 22" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+      <path d="M2 8h16v10a2 2 0 01-2 2H4a2 2 0 01-2-2V8z" opacity="0.7"/>
+      <ellipse cx="10" cy="5" rx="6" ry="4" opacity="0.9"/>
+      <circle cx="7.5" cy="4.5" r="1" fill="#060E14"/>
+      <circle cx="12.5" cy="4.5" r="1" fill="#060E14"/>
+      <line x1="6" y1="1" x2="8" y2="3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="14" y1="1" x2="12" y2="3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      <rect x="0" y="9" width="1.5" height="8" rx="0.75" opacity="0.6"/>
+      <rect x="18.5" y="9" width="1.5" height="8" rx="0.75" opacity="0.6"/>
+      <rect x="6" y="20" width="3" height="4" rx="1.5" opacity="0.7"/>
+      <rect x="11" y="20" width="3" height="4" rx="1.5" opacity="0.7"/>
+    </svg>
+    Built with Kotlin heart
+  </div>
+</footer>
+
+<script>
+  // Terminal ticker
+  const phrases = [
+    'adb connect android.excellence',
+    'gradle build --release',
+    'git push origin main',
+    'kotlin { coroutines { fun } }',
+    './gradlew :app:bundleRelease',
+    'compose { state { magic() } }',
+  ];
+  let phraseIdx = 0;
+  const ticker = document.getElementById('ticker');
+  function rotateTicker() {
+    phraseIdx = (phraseIdx + 1) % phrases.length;
+    ticker.style.opacity = '0';
+    setTimeout(() => {
+      ticker.textContent = phrases[phraseIdx];
+      ticker.style.opacity = '1';
+    }, 400);
+  }
+  ticker.style.transition = 'opacity 0.4s';
+  setInterval(rotateTicker, 3000);
+
+  // Intersection Observer for fade-up
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Form submit
+  function handleSubmit(btn) {
+    btn.textContent = '✓ Message Sent!';
+    btn.style.background = '#1a5c3a';
+    btn.style.color = '#3DDC84';
+    setTimeout(() => {
+      btn.textContent = 'Send Message ↗';
+      btn.style.background = '';
+      btn.style.color = '';
+    }, 3000);
+  }
+
+  // Smooth nav active states
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    const pos = window.scrollY;
+    document.querySelectorAll('section[id]').forEach(sec => {
+      if (pos >= sec.offsetTop - 200) {
+        navLinks.forEach(a => a.style.color = '');
+        const link = document.querySelector(`.nav-links a[href="#${sec.id}"]`);
+        if (link) link.style.color = '#3DDC84';
+      }
+    });
+  });
+</script>
+</body>
+</html>
